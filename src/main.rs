@@ -8,6 +8,7 @@ extern crate itertools;
 #[macro_use] extern crate maplit;
 #[macro_use] extern crate ndarray;
 #[macro_use] extern crate nom;
+extern crate permutohedron;
 extern crate rayon;
 extern crate termion;
 
@@ -33,6 +34,7 @@ mod day17;
 mod day18;
 mod day19;
 mod day20;
+mod day21;
 mod parsers;
 mod util;
 
@@ -68,6 +70,7 @@ fn main() {
         18 => day18::solve(),
         19 => day19::solve(),
         20 => day20::solve(),
+        21 => day21::solve(),
         day => println!("No solution found for day {}", day),
     }
 }
