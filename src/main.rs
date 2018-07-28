@@ -35,6 +35,7 @@ mod day18;
 mod day19;
 mod day20;
 mod day21;
+mod day22;
 mod parsers;
 mod util;
 
@@ -71,6 +72,7 @@ fn main() {
         19 => day19::solve(),
         20 => day20::solve(),
         21 => day21::solve(),
+        22 => day22::solve(),
         day => println!("No solution found for day {}", day),
     }
 }
