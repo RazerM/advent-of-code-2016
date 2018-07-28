@@ -1,5 +1,3 @@
-#![feature(slice_rotate)]
-
 #[macro_use] extern crate clap;
 extern crate crypto;
 extern crate hex;
