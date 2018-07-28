@@ -14,6 +14,18 @@ named!(pub int32<&str, i32>,
     )
 );
 
+named!(pub uint64<&str, u64>,
+    map!(
+        recognize!(
+            tuple!(
+                opt!(tag!("-")),
+                call!(digit)
+            )
+        ),
+        |s| FromStr::from_str(s).unwrap()
+    )
+);
+
 named!(pub int_usize<&str, usize>,
     map!(
         recognize!(
