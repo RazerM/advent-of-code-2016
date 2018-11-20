@@ -34,7 +34,7 @@ pub fn solve() {
     // Account for ranges where there isn't one up to u32::max_value()
     let max_high = ranges.iter().map(|r| r.high).max().unwrap();
 
-    let mut allowed = u32::max_value() as u64 - max_high;
+    let mut allowed = u64::from(u32::max_value()) - max_high;
     // keep track of highest range seen so far
     let mut high = 0;
     let mut lowest: Option<u64> = None;
