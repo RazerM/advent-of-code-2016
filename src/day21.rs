@@ -112,8 +112,8 @@ fn scramble(mut pchars: Vec<char>, instructions: &[Instruction]) -> String {
                 }
             },
             Instruction::Reverse(x, y) => {
-                let revslice = pchars[x..y + 1].iter().rev().cloned().collect::<Vec<_>>();
-                pchars.splice(x..y + 1, revslice);
+                let revslice = pchars[x..=y].iter().rev().cloned().collect::<Vec<_>>();
+                pchars.splice(x..=y, revslice);
             },
             Instruction::Move(x, y) => {
                 let x_char = pchars.remove(x);

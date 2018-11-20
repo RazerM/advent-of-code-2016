@@ -14,7 +14,7 @@ pub fn solve() {
     let num_elfs: i32 = stdin_as_string().parse().unwrap();
 
     // I spent far too long before drawing this on paper :-(
-    let mut elfs = (1..num_elfs + 1).collect::<VecDeque<_>>();
+    let mut elfs = (1..=num_elfs).collect::<VecDeque<_>>();
     while elfs.len() > 1 {
         let cur = elfs.pop_front().unwrap();
         elfs.pop_front();
@@ -26,7 +26,7 @@ pub fn solve() {
     let mut gifted_elf = 0;
     let mut prev_power = 0;
 
-    for i in 1..num_elfs + 1 {
+    for i in 1..=num_elfs {
         if is_power_of_3(i) {
             gifted_elf = i;
             prev_power = i;
