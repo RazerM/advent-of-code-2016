@@ -10,19 +10,19 @@ struct Grid {
 }
 
 impl Grid {
-    fn in_bounds(&self, pos: &Point) -> bool {
-        let &(x, y) = pos;
+    fn in_bounds(&self, pos: Point) -> bool {
+        let (x, y) = pos;
         x >= 0 && y >= 0
     }
 
-    fn is_wall(&self, pos: &Point) -> bool {
-        let &(x, y) = pos;
+    fn is_wall(&self, pos: Point) -> bool {
+        let (x, y) = pos;
         let n = x * x + 3 * x + 2 * x * y + y + y * y + self.fav;
         n.count_ones() % 2 != 0
     }
 
-    fn neighbours(&self, pos: &Point) -> Vec<Point> {
-        let &(x, y) = pos;
+    fn neighbours(&self, pos: Point) -> Vec<Point> {
+        let (x, y) = pos;
         let neighbours = [
             (x + 1, y),
             (x, y - 1),
@@ -32,8 +32,8 @@ impl Grid {
 
         neighbours.iter()
             .cloned()
-            .filter(|p| self.in_bounds(p))
-            .filter(|p| !self.is_wall(p))
+            .filter(|p| self.in_bounds(*p))
+            .filter(|p| !self.is_wall(*p))
             .collect::<Vec<Point>>()
     }
 
@@ -42,7 +42,7 @@ impl Grid {
         let (width, height) = to;
         for y in 0..height {
             for x in 0..width {
-                if self.is_wall(&(x, y)) {
+                if self.is_wall((x, y)) {
                     print!("#")
                 } else {
                     print!(".")
@@ -70,7 +70,7 @@ fn find_goal(grid: &Grid, start: Point, goal: Point) -> (i32, i32) {
             if current == goal {
                 part1 = Some(steps)
             }
-            for neighbour in grid.neighbours(&current) {
+            for neighbour in grid.neighbours(current) {
                 if visited.insert(neighbour) {
                     new.push_back(neighbour);
                 }
