@@ -1,6 +1,16 @@
+#![deny(bare_trait_objects)]
+#![deny(elided_lifetimes_in_paths)]
+#![deny(missing_copy_implementations)]
+#![deny(missing_debug_implementations)]
+#![deny(trivial_casts)]
+#![deny(trivial_numeric_casts)]
+#![deny(unreachable_pub)]
+#![deny(unused_extern_crates)]
+#![deny(unused_import_braces)]
+#![deny(unused_qualifications)]
+
 extern crate clap;
 extern crate crypto;
-extern crate hex;
 extern crate iterslide;
 extern crate itertools;
 extern crate maplit;

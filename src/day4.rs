@@ -75,7 +75,7 @@ impl Room {
     }
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let stdin = io::stdin();
     let valid_rooms = stdin.lock().lines()
         .map(|l| parse_room(&l.unwrap()).to_result().unwrap())

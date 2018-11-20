@@ -21,7 +21,7 @@ named!(parse_instructions<&str, Vec<(Turn, i32)>>,
     separated_nonempty_list_complete!(tag!(", "), tuple!(turn, int32))
 );
 
-pub fn solve() {
+pub(crate) fn solve() {
     let buffer = stdin_as_string();
     let instructions: Vec<(Turn, i32)> = parse_instructions(&buffer).to_result().unwrap();
 

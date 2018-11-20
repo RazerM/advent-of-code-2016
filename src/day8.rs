@@ -46,7 +46,7 @@ named!(parse_instruction<&str, Instruction>,
     alt!(rect | rotate)
 );
 
-pub fn solve() {
+pub(crate) fn solve() {
     let width = 50;
     let height = 6;
     let mut x = Array::<u8, _>::zeros((height, width));

@@ -9,7 +9,7 @@ enum Part<'a> {
     Normal(&'a str),
 }
 
-named!(repeat<&str, Part>,
+named!(repeat<&str, Part<'_>>,
     do_parse!(
         tag!("(") >>
         length: int32 >>
@@ -21,7 +21,7 @@ named!(repeat<&str, Part>,
     )
 );
 
-named!(parse_compressed<&str, Vec<Part>>,
+named!(parse_compressed<&str, Vec<Part<'_>>>,
     many0!(
         alt_complete!(
             repeat |
@@ -34,7 +34,7 @@ named!(parse_compressed<&str, Vec<Part>>,
     )
 );
 
-fn expand(sequence: Vec<Part>) -> String {
+fn expand(sequence: Vec<Part<'_>>) -> String {
     let mut out = String::new();
     for part in sequence {
         match part {
@@ -55,7 +55,7 @@ fn expand_length(input: &str) -> usize {
         .sum()
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let input = stdin_as_string();
     let seq = parse_compressed(&input).to_result().unwrap();
     println!("Part 1: {}", expand(seq).len());

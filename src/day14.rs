@@ -99,7 +99,7 @@ where
     None
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let input = stdin_as_string();
     let salt = input.as_bytes();
     println!("Part 1: {}", find_64th_key(salt, &compute_hash).unwrap());

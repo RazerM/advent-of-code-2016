@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::io::{self, BufRead};
 
-pub fn solve() {
+pub(crate) fn solve() {
     let stdin = io::stdin();
     let messages = stdin.lock().lines()
         .map(|l| l.unwrap())

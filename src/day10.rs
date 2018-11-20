@@ -54,7 +54,7 @@ named!(parse_instruction<&str, Instruction>,
     )
 );
 
-pub fn solve() {
+pub(crate) fn solve() {
     let stdin = io::stdin();
     let instructions = stdin.lock().lines()
         .map(|l| parse_instruction(&l.unwrap()).to_result().unwrap())

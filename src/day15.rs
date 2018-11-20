@@ -40,7 +40,7 @@ fn find_button_time(discs: &[Disc]) -> Option<usize> {
         })
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let stdin = io::stdin();
     let mut discs = stdin.lock().lines()
         .map(|l| {

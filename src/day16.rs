@@ -35,7 +35,7 @@ fn calculate_checksum(data: &str, size: usize) -> String {
     checksum
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let input = stdin_as_string();
 
     let size1 = 272;

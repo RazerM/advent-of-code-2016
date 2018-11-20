@@ -18,7 +18,7 @@ enum Direction {
 }
 
 impl fmt::Display for Direction {
-    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
         let l = match *self {
             Direction::Up => "U",
             Direction::Down => "D",
@@ -117,7 +117,7 @@ fn find_paths(passcode: &str) -> Option<(String, usize)> {
     }
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let passcode = stdin_as_string();
 
     let (shortest_path, longest_path) = find_paths(&passcode).unwrap();

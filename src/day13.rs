@@ -84,7 +84,7 @@ fn find_goal(grid: &Grid, start: Point, goal: Point) -> (i32, i32) {
     (part1.unwrap(), part2.unwrap())
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let fav = stdin_as_string().parse::<i32>().expect("an integer");
     let grid = Grid { fav };
 //    grid.draw((32, 40));

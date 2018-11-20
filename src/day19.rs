@@ -10,7 +10,7 @@ fn is_power_of_3(mut n: i32) -> bool {
     n == 1
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let num_elfs: i32 = stdin_as_string().parse().unwrap();
 
     // I spent far too long before drawing this on paper :-(

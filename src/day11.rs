@@ -19,7 +19,7 @@ enum Fuel {
 }
 
 impl fmt::Display for Fuel {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match *self {
             Fuel::Promethium => write!(f, "Pr"),
             Fuel::Cobalt => write!(f, "Co"),
@@ -41,7 +41,7 @@ enum Item {
 }
 
 impl fmt::Display for Item {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match *self {
             Item::Generator(ref fuel) => write!(f, "{}G", fuel),
             Item::Microchip(ref fuel) => write!(f, "{}M", fuel),
@@ -91,7 +91,7 @@ impl State {
 }
 
 impl fmt::Display for State {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "E{}: ", self.elevator + 1)?;
         for (i, floor) in self.floors.iter().enumerate() {
             write!(f, "[")?;
@@ -210,7 +210,7 @@ fn find_min_moves(initial: State) -> Option<i32> {
     None
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let state1 = State {
         elevator: 0,
         floors: vec![

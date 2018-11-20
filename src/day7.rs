@@ -124,7 +124,7 @@ named!(parse_ip7<&str, Ip7>,
     )
 );
 
-pub fn solve() {
+pub(crate) fn solve() {
     let stdin = io::stdin();
     let ip7s = stdin.lock().lines()
         .map(|l| parse_ip7(&l.unwrap()).to_result().unwrap())

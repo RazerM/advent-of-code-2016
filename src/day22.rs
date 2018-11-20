@@ -39,7 +39,7 @@ fn is_viable(a: &Node, b: &Node) -> bool {
     a.used > 0 && a.used <= b.available()
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let stdin = io::stdin();
     let nodes = stdin.lock().lines()
         .skip(2)

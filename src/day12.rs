@@ -77,7 +77,7 @@ fn run(instructions: &[Instruction], registers: &mut HashMap<Reg, i32>) {
     }
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let stdin = io::stdin();
     let instructions = stdin.lock().lines()
         .map(|l| l.unwrap())

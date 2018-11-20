@@ -83,7 +83,7 @@ impl<'a> Iterator for AdvancedPassword<'a> {
     }
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let door_id = stdin_as_string();
 
     let p = SimplePassword::new(door_id.as_bytes())

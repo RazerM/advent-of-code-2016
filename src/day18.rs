@@ -58,7 +58,7 @@ fn count_safe(first_row: &str, rows: i32) -> usize {
     safe
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let first_row = stdin_as_string();
     println!("Part 1: {}", count_safe(&first_row, 40));
     println!("Part 2: {}", count_safe(&first_row, 400_000));

@@ -7,7 +7,7 @@ fn valid_triangle(x: &[i32; 3]) -> bool {
     x[1] + x[2] > x[0]
 }
 
-pub fn solve() {
+pub(crate) fn solve() {
     let stdin = io::stdin();
     let rows = stdin.lock().lines()
         .map(|l| {

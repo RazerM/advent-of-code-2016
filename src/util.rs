@@ -1,6 +1,6 @@
 use std::io::{self, Read};
 
-pub fn stdin_as_string() -> String {
+pub(crate) fn stdin_as_string() -> String {
     let mut buffer = String::new();
     io::stdin().read_to_string(&mut buffer).unwrap();
     buffer.trim().to_string()
