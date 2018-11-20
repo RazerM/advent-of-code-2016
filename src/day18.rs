@@ -37,7 +37,7 @@ fn count_safe(first_row: &str, rows: i32) -> usize {
 
         if num_rows == rows { break; }
 
-        let next_row = (0..prev_row.len()).into_iter()
+        let next_row = (0..prev_row.len())
             .map(|i| {
                 let left = match i {
                     0 => &Tile::Safe,

@@ -29,7 +29,7 @@ struct Disc {
 }
 
 fn find_button_time(discs: &[Disc]) -> Option<usize> {
-    (0..).into_iter()
+    (0..)
         .find(|t| {
             discs.iter()
                 .enumerate()
