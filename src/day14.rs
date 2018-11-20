@@ -8,14 +8,14 @@ use rayon::prelude::*;
 
 use super::util::stdin_as_string;
 
-fn compute_hash(salt: &[u8], index: &i32) -> String {
+fn compute_hash(salt: &[u8], index: i32) -> String {
     let mut hasher = Md5::new();
     hasher.input(salt);
     hasher.input(index.to_string().as_bytes());
     hasher.result_str()
 }
 
-fn compute_stretched_hash(salt: &[u8], index: &i32) -> String {
+fn compute_stretched_hash(salt: &[u8], index: i32) -> String {
     let mut hasher = Md5::new();
     hasher.input(salt);
     hasher.input(index.to_string().as_bytes());
@@ -54,11 +54,11 @@ fn quintuplets(s: &str) -> HashSet<char> {
 
 fn make_hashes<F>(salt: &[u8], start: i32, num: i32, compute_hash: &F) -> Vec<HashResult>
 where
-    F: Fn(&[u8], &i32) -> String + Send + Sync,
+    F: Fn(&[u8], i32) -> String + Send + Sync,
 {
     let end = start + num;
     (start..end).into_par_iter()
-        .map(|x| compute_hash(salt, &x))
+        .map(|x| compute_hash(salt, x))
         .map(|h| HashResult {
             triplet: first_triplet(&h),
             quintuplets: quintuplets(&h),
@@ -68,7 +68,7 @@ where
 
 fn find_64th_key<F>(salt: &[u8], compute_hash: &F) -> Option<usize>
 where
-    F: Fn(&[u8], &i32) -> String + Send + Sync
+    F: Fn(&[u8], i32) -> String + Send + Sync
 {
     let chunk_size = 10_000;
     let mut hashes = Vec::with_capacity(chunk_size as usize);

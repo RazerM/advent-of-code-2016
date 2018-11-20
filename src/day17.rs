@@ -28,7 +28,7 @@ impl fmt::Display for Direction {
     }
 }
 
-fn get_possible_moves(size: &Pos, passcode: &str, state: &State) -> Vec<Direction> {
+fn get_possible_moves(size: Pos, passcode: &str, state: &State) -> Vec<Direction> {
     let open_chars = hashset!{'b', 'c', 'd', 'e', 'f'};
 
     let &State { ref path, pos } = state;
@@ -84,7 +84,7 @@ fn find_paths(passcode: &str) -> Option<(String, usize)> {
 
     while let Some(state) = queue.pop_front() {
         let State { ref path, ref pos } = state;
-        let possible_moves = get_possible_moves(&size, passcode, &state);
+        let possible_moves = get_possible_moves(size, passcode, &state);
 
         for move_ in possible_moves {
             let new_pos = match move_ {
