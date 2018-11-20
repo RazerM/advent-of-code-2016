@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::io::{self, BufRead};
 
 use itertools::{Itertools, join};
-use nom::{alpha};
+use nom::alpha;
 
 use super::parsers::int32;
 

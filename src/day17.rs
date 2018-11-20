@@ -3,6 +3,7 @@ use std::fmt;
 
 use crypto::md5::Md5;
 use crypto::digest::Digest;
+use maplit::hashset;
 
 use super::util::stdin_as_string;
 

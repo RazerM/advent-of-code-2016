@@ -3,6 +3,7 @@ use std::io::{self, BufRead};
 
 use super::parsers::int32;
 
+use maplit::hashmap;
 use nom::anychar;
 
 type Reg = char;

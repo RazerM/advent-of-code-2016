@@ -2,6 +2,7 @@ use std::collections::{HashMap, HashSet, VecDeque};
 use std::fmt;
 
 use itertools::Itertools;
+use maplit::hashset;
 
 #[allow(dead_code)]
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]

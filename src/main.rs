@@ -1,16 +1,16 @@
-#[macro_use] extern crate clap;
+extern crate clap;
 extern crate crypto;
 extern crate hex;
 extern crate iterslide;
 extern crate itertools;
-#[macro_use] extern crate maplit;
-#[macro_use] extern crate ndarray;
+extern crate maplit;
+extern crate ndarray;
 #[macro_use] extern crate nom;
 extern crate permutohedron;
 extern crate rayon;
 extern crate termion;
 
-use clap::{Arg, App};
+use clap::{Arg, App, crate_authors, crate_version, value_t};
 
 mod day1;
 mod day2;

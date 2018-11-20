@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use nom::digit;
+use nom::{digit, named};
 
 named!(pub int32<&str, i32>,
     map!(

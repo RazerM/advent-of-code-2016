@@ -1,6 +1,6 @@
 use std::io::{self, BufRead};
 
-use ndarray::Array;
+use ndarray::{Array, s};
 
 use super::parsers::int32;
 
