@@ -1,6 +1,5 @@
 use crypto::md5::Md5;
 use crypto::digest::Digest;
-use hex;
 use termion::clear;
 use termion::cursor;
 
