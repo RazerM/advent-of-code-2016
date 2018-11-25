@@ -1,9 +1,8 @@
-use std::collections::HashMap;
 use std::io::{self, BufRead};
 
-use assembunny;
-
 use maplit::hashmap;
+
+use assembunny;
 
 pub(crate) fn solve() {
     let stdin = io::stdin();
@@ -12,8 +11,8 @@ pub(crate) fn solve() {
         .map(|l| assembunny::instruction(&l).to_result().unwrap())
         .collect::<Vec<_>>();
 
-    let mut registers1 = HashMap::new();
-    let mut registers2 = hashmap!{'c' => 1};
+    let mut registers1 = hashmap!{'a' => 7};
+    let mut registers2 = hashmap!{'a' => 12};
 
     assembunny::run(instructions.clone(), &mut registers1);
     println!("Part 1: {}", &registers1[&'a']);
