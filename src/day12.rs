@@ -15,9 +15,9 @@ pub(crate) fn solve() {
     let mut registers1 = HashMap::new();
     let mut registers2 = hashmap!{'c' => 1};
 
-    assembunny::run(instructions.clone(), &mut registers1);
+    assembunny::run(instructions.clone(), &mut registers1, None);
     println!("Part 1: {}", &registers1[&'a']);
 
-    assembunny::run(instructions, &mut registers2);
+    assembunny::run(instructions, &mut registers2, None);
     println!("Part 2: {}", &registers2[&'a']);
 }

@@ -41,7 +41,8 @@ named!(pub instruction<&str, Instruction>,
             do_parse!(tag!("inc") >> x: reg >> (Instruction::Inc(x))) |
             do_parse!(tag!("dec") >> x: reg >> (Instruction::Dec(x))) |
             do_parse!(tag!("jnz") >> x: arg >> y: arg >> (Instruction::Jnz(x, y))) |
-            do_parse!(tag!("tgl") >> x: reg >> (Instruction::Tgl(x)))
+            do_parse!(tag!("tgl") >> x: reg >> (Instruction::Tgl(x))) |
+            do_parse!(tag!("out") >> x: arg >> (Instruction::Out(x)))
         )
     )
 );
@@ -54,6 +55,7 @@ pub enum Instruction {
     Dec(Reg),
     Jnz(Arg, Arg),
     Tgl(Reg),
+    Out(Arg),
     Add(Reg, Reg),
     Mul(Reg, Reg),
     Nop,
@@ -63,17 +65,17 @@ fn optimize_add(instructions: &mut [Instruction]) {
     for i in 2..instructions.len() {
         let inc_x = match instructions[i - 2] {
             Instruction::Inc(x) => x,
-            _ => continue
+            _ => continue,
         };
 
         let dec_x = match instructions[i - 1] {
             Instruction::Dec(x) => x,
-            _ => continue
+            _ => continue,
         };
 
         let (jnz_x, jnz_y) = match instructions[i] {
             Instruction::Jnz(Arg::Reg(x), Arg::Val(y)) => (x, y),
-            _ => continue
+            _ => continue,
         };
 
         if jnz_y != -2 || dec_x != jnz_x {
@@ -90,32 +92,32 @@ fn optimize_mul(instructions: &mut [Instruction]) {
     for i in 5..instructions.len() {
         let (cpy_x, cpy_y) = match instructions[i - 5] {
             Instruction::Cpy(Arg::Reg(x), y) => (x, y),
-            _ => continue
+            _ => continue,
         };
 
         let inc_x = match instructions[i - 4] {
             Instruction::Inc(x) => x,
-            _ => continue
+            _ => continue,
         };
 
         let dec1_x = match instructions[i - 3] {
             Instruction::Dec(x) => x,
-            _ => continue
+            _ => continue,
         };
 
         let (jnz1_x, jnz1_y) = match instructions[i - 2] {
             Instruction::Jnz(Arg::Reg(x), Arg::Val(y)) => (x, y),
-            _ => continue
+            _ => continue,
         };
 
         let dec2_x = match instructions[i - 1] {
             Instruction::Dec(x) => x,
-            _ => continue
+            _ => continue,
         };
 
         let (jnz2_x, jnz2_y) = match instructions[i] {
             Instruction::Jnz(Arg::Reg(x), Arg::Val(y)) => (x, y),
-            _ => continue
+            _ => continue,
         };
 
         if jnz1_y != -2 || jnz2_y != -5 || jnz1_x != dec1_x || jnz2_x != dec2_x {
@@ -131,11 +133,18 @@ fn optimize_mul(instructions: &mut [Instruction]) {
     }
 }
 
-pub fn run(mut instructions: Vec<Instruction>, registers: &mut HashMap<Reg, i32>) {
+pub fn run(
+    mut instructions: Vec<Instruction>,
+    registers: &mut HashMap<Reg, i32>,
+    out_limit: Option<u64>,
+) -> bool {
     let mut i = 0;
+    let mut num_out: u64 = 0;
 
     optimize_mul(&mut instructions);
     optimize_add(&mut instructions);
+
+    let mut state = 1;
 
     while let Some(instruction) = instructions.get(i as usize).cloned() {
         match instruction {
@@ -160,6 +169,18 @@ pub fn run(mut instructions: Vec<Instruction>, registers: &mut HashMap<Reg, i32>
                     i += y.value(registers) - 1;
                 }
             }
+            Instruction::Out(ref x) => {
+                num_out += 1;
+                let want = match state {
+                    0 => 1,
+                    1 => 0,
+                    _ => unreachable!("0 or 1"),
+                };
+                if x.value(registers) != want {
+                    return false;
+                }
+                state = want;
+            }
             Instruction::Tgl(ref x) => {
                 let toggle_idx = (i + *registers.get(x).unwrap_or(&0)) as usize;
                 if toggle_idx < instructions.len() {
@@ -170,6 +191,7 @@ pub fn run(mut instructions: Vec<Instruction>, registers: &mut HashMap<Reg, i32>
                         Instruction::Dec(p) | Instruction::Tgl(p) => {
                             instructions[toggle_idx] = Instruction::Inc(p);
                         }
+                        Instruction::Out(_) => unimplemented!(),
                         Instruction::Jnz(p, q) => match q {
                             Arg::Reg(r) => {
                                 instructions[toggle_idx] = Instruction::Cpy(p, r);
@@ -184,14 +206,18 @@ pub fn run(mut instructions: Vec<Instruction>, registers: &mut HashMap<Reg, i32>
                         Instruction::CpyInvalid(p, q) => {
                             instructions[toggle_idx] = Instruction::Jnz(p, q);
                         }
-                        Instruction::Nop
-                        | Instruction::Add(_, _)
-                        | Instruction::Mul(_, _) => {}
+                        Instruction::Nop | Instruction::Add(_, _) | Instruction::Mul(_, _) => {}
                     }
                 }
             }
             Instruction::Nop | Instruction::CpyInvalid(_, _) => {}
         };
         i += 1;
+        if let Some(limit) = out_limit {
+            if num_out > limit {
+                return true;
+            }
+        }
     }
+    true
 }
