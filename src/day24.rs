@@ -202,7 +202,7 @@ pub(crate) fn solve() {
                 .map(|c| match c {
                     '#' => Block::Wall,
                     '.' => Block::Path,
-                    c @ '0'...'9' => Block::Number(c.to_digit(10).unwrap() as i32),
+                    c @ '0'..='9' => Block::Number(c.to_digit(10).unwrap() as i32),
                     c => panic!(format!("Unexpected character: {}", c)),
                 }).collect::<Vec<_>>()
         }).collect::<Vec<_>>();
