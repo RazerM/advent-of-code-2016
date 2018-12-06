@@ -9,16 +9,7 @@
 #![deny(unused_import_braces)]
 #![deny(unused_qualifications)]
 
-extern crate clap;
-extern crate crypto;
-extern crate iterslide;
-extern crate itertools;
-extern crate maplit;
-extern crate ndarray;
 #[macro_use] extern crate nom;
-extern crate permutohedron;
-extern crate rayon;
-extern crate termion;
 
 use clap::{Arg, App, crate_authors, crate_version, value_t};
 
