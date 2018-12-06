@@ -2,7 +2,7 @@ use std::io::{self, BufRead};
 
 use maplit::hashmap;
 
-use assembunny;
+use crate::assembunny;
 
 pub(crate) fn solve() {
     let stdin = io::stdin();

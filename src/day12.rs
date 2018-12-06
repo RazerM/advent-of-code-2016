@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::io::{self, BufRead};
 
-use assembunny;
+use crate::assembunny;
 
 use maplit::hashmap;
 
