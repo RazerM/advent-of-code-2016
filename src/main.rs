@@ -11,7 +11,7 @@
 
 #[macro_use] extern crate nom;
 
-use clap::{Arg, App, crate_authors, crate_version, value_t};
+use clap::{Arg, App};
 
 mod day1;
 mod day2;
@@ -44,14 +44,15 @@ mod util;
 
 fn main() {
     let matches = App::new("aoc")
-        .version(crate_version!())
-        .author(crate_authors!(", "))
+        .version(clap::crate_version!())
+        .author(clap::crate_authors!(", "))
         .arg(Arg::with_name("day")
             .required(true)
             .help("Day of the advent calendar"))
         .get_matches();
 
-    let day = value_t!(matches.value_of("day"), u32).unwrap_or_else(|e| e.exit());
+    let day = clap::value_t!(matches.value_of("day"), u32)
+        .unwrap_or_else(|e| e.exit());
 
     match day {
         1 => day1::solve(),
